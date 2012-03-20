@@ -1,4 +1,5 @@
 docs/_build
+cn_docs/_build
 .idea
 
 # Ignore irrelevant files from the Sublime Text editor
