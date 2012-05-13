@@ -9,14 +9,16 @@ database access modules. It's documented in `PEP 249 <http://www.python.org/dev/
 Nearly all Python database modules such as `sqlite3`, `psycopg` and
 `mysql-python` conform to this interface.
 
-
+Tutorials that explain how to work with modules that conform to this interface can be found
+`here <http://halfcooked.com/presentations/osdc2006/python_databases.html>`_ and
+`here <http://www.amk.ca/python/writing/DB-API.html>`_.
 
 SQLAlchemy
 ----------
 
-`SQLAlchemy <http://www.sqlalchemy.org/>`_ is a commonly used database toolkit. Unlike many database libraries
-it not only provides an ORM layer but also a generalized API for writing
-database-agnostic code without SQL.
+`SQLAlchemy <http://www.sqlalchemy.org/>`_ is a commonly used database toolkit.
+Unlike many database libraries it not only provides an ORM layer but also a
+generalized API for writing database-agnostic code without SQL.
 
 ::
 
@@ -25,8 +27,10 @@ database-agnostic code without SQL.
 Django ORM
 ----------
 
-The Django ORM is the interface used by `Django <http://www.djangoproject.com>`_ to provide database access.
+The Django ORM is the interface used by `Django <http://www.djangoproject.com>`_
+to provide database access.
 
-It's based on the idea of models, an abstraction that makes it easier to manipulate data in Python.
+It's based on the idea of models, an abstraction that makes it easier to
+manipulate data in Python.
 
 Documentation can be found `here <https://docs.djangoproject.com/en/1.3/#the-model-layer>`_
