@@ -52,3 +52,24 @@ PyPy的目标是在与CPython参考实现保持最大的兼容的同时提高性
 
 Jython
 -------
+
+`Jython <http://www.jython.org/>`_ 是一种将Python代码编译为Java字节码然后在JVM上执行的Python实现。它的额外优势是能够像使用Python模块一样import使用任何Java类。
+
+如果你需要使用已有Java代码基的接口或者有另外的理由需要为JVM编写Python代码，那么Jython是最佳选择。
+
+目前Jython支持至Python 2.5。 [#jython_ver]_
+
+IronPython
+------------
+
+`IronPython <http://ironpython.net/>`_ 是一种针对.NET框架的Python实现。Python和.NET框架的代码库它都可以使用，也可以将Python代码提供给其他.NET语言使用(译注：这句不知翻译得是否妥当)。
+
+`Visual Studio Python工具集 <http://ironpython.net/tools/>`_ 直接将IronPython集成入Visual Studion开发环境，使得IronPython成为Windows开发者的理想选择。
+
+IronPython支持Python 2.7。 [#iron_ver]_
+
+.. [#pypy_ver] http://pypy.org/compat.html
+
+.. [#jython_ver] http://wiki.python.org/jython/JythonFaq/GeneralInfo#Is_Jython_the_same_language_as_Python.3F
+
+.. [#iron_ver] http://ironpython.codeplex.com/releases/view/54498
