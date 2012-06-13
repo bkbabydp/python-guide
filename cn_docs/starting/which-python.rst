@@ -46,7 +46,7 @@ PyPy
 
 PyPy的目标是在与CPython参考实现保持最大的兼容的同时提高性能。
 
-如果你正在想法子提交你的Python代码的性能，那么值得尝试一下PyPy。在一套基准测试中，它 `快于CPython 5倍有余 <http://speed.pypy.org/>` 。
+如果你正在想法子提交你的Python代码的性能，那么值得尝试一下PyPy。在一套基准测试中，它 `快于CPython 5倍有余 <http://speed.pypy.org/>`_ 。
 
 目前PyPy支持Python 2.7。 [#pypy_ver]_
 
@@ -64,7 +64,7 @@ IronPython
 
 `IronPython <http://ironpython.net/>`_ 是一种针对.NET框架的Python实现。Python和.NET框架的代码库它都可以使用，也可以将Python代码提供给其他.NET语言使用(译注：这句不知翻译得是否妥当)。
 
-`Visual Studio Python工具集 <http://ironpython.net/tools/>`_ 直接将IronPython集成入Visual Studion开发环境，使得IronPython成为Windows开发者的理想选择。
+`Visual Studio Python工具集 <http://ironpython.net/tools/>`_ 直接将IronPython集成入Visual Studio开发环境，使得IronPython成为Windows开发者的理想选择。
 
 IronPython支持Python 2.7。 [#iron_ver]_
 
