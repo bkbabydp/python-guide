@@ -48,7 +48,7 @@ PyPy的目标是在与CPython参考实现保持最大的兼容的同时提高性
 
 如果你正在想法子提交你的Python代码的性能，那么值得尝试一下PyPy。在一套基准测试中，它 `快于CPython 5倍有余 <http://speed.pypy.org/>` 。
 
-目前PyPy支持Python 2.7。[#pypy_ver]_
+目前PyPy支持Python 2.7。 [#pypy_ver]_
 
 Jython
 -------
