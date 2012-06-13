@@ -9,7 +9,7 @@ Structure is Key
 ----------------
 
 Thanks to the way imports and modules are handled in Python, it is
-relatively easy to structure a python project. Easy, here, means
+relatively easy to structure a Python project. Easy, here, means
 that you do not have many constraints and that the module
 importing model is easy to grasp. Therefore, you are left with the
 pure architectural task of crafting the different parts of your
@@ -19,7 +19,7 @@ Easy structuring of a project means it is also easy
 to do it poorly. Some signs of a poorly structured project
 include:
 
-- Multiple and messy circular dependencies: If your classes
+- Multiple and messy circular dependencies: if your classes
   Table and Chair in furn.py need to import Carpenter from workers.py
   to answer a question such as table.isdoneby(),
   and if conversely the class Carpenter needs to import Table and Chair,
@@ -28,13 +28,13 @@ include:
   fragile hacks such has using import statements inside
   methods or functions.
 
-- Hidden coupling: Each and every change in Table's implementation
+- Hidden coupling: each and every change in Table's implementation
   breaks 20 tests in unrelated test cases because it breaks Carpenter's code,
   which requires very careful surgery to adapt the change. This means
   you have too many assumptions about Table in Carpenter's code or the
   reverse.
 
-- Heavy usage of global state or context: Instead of explicitly
+- Heavy usage of global state or context: instead of explicitly
   passing ``(height, width, type, wood)`` to each other, Table
   and Carpenter rely on global variables that can be modified
   and are modified on the fly by different agents. You need to
@@ -43,14 +43,14 @@ include:
   template code is also modifying this context, messing with
   table dimensions.
 
-- Spaghetti code: Multiple pages of nested if clauses and for loops
+- Spaghetti code: multiple pages of nested if clauses and for loops
   with a lot of copy-pasted procedural code and no
-  proper segmentation are known as spaghetti code. Python's 
+  proper segmentation are known as spaghetti code. Python's
   meaningful indentation (one of its most controversial features) make
   it very hard to maintain this kind of code. So the good news is that
   you might not see too much of it.
 
-- Ravioli code is more likely in Python: It consists of hundreds of
+- Ravioli code is more likely in Python: it consists of hundreds of
   similar little pieces of logic, often classes or objects, without
   proper structure. If you never can remember if you have to use
   FurnitureTable, AssetTable or Table, or even TableNew for your
@@ -186,14 +186,14 @@ objects, they have a type, they can be passed as function arguments, they may
 have methods and properties. In this understanding, Python is an
 object-oriented language.
 
-However, unlike Java, Python do not impose object-oriented programming as the
+However, unlike Java, Python does not impose object-oriented programming as the
 main programming paradigm. It is perfectly viable for a Python project to not
 be object-oriented, i.e. to use no or very few class definitions, class
 inheritance, or any other mechanisms that are specific to object-oriented
 programming.
 
 Moreover, as seen in the modules_ section, the way Python handles modules and
-namespaces gives the developer a natural way to ensure
+namespaces gives the developer a natural way to ensure the
 encapsulation and separation of abstraction layers, both being the most common
 reasons to use object-orientation. Therefore, Python programmers have more
 latitude to not use object-orientation, when it is not required by the business
@@ -208,8 +208,8 @@ In some architectures, typically web applications, multiple instances of Python
 processes are spawned to respond to external requests that can
 happen at the same time. In this case, holding some state into instantiated
 objects, which means keeping some static information about the world, is prone
-to concurrency problems or race-conditions. Sometime between the initialization of the
-state of an object, usually done with the __init__() method, and the actual use
+to concurrency problems or race-conditions. Sometimes, between the initialization of
+the state of an object (usually done with the __init__() method) and the actual use
 of the object state through one of its methods, the world may have changed, and
 the retained state may be outdated. For example, a request may load an item in
 memory and mark it as read by a user. If another request requires the deletion
@@ -230,7 +230,7 @@ in the persistence layer, it is said to have a side-effect.
 Carefully isolating functions with context and side-effects from functions with
 logic (called pure functions) allow the following benefits:
 
-- Pure functions are more likely to be deterministic: given a fixed input,
+- Pure functions are deterministic: given a fixed input,
   the output will always be the same.
 
 - Pure functions are much easier to change or replace if they need to
@@ -257,7 +257,7 @@ The Python language provides a simple yet powerful syntax called 'decorators'.
 A decorator is a function or a class that wraps (or decorate) a function
 or a method. The 'decorated' function or method will replace the original
 'undecorated' function or method. Because functions are first-class objects
-in Python it can be done 'manually' but using the @decorator syntax is
+in Python, it can be done 'manually', but using the @decorator syntax is
 clearer and thus preferred.
 
 .. code-block:: python

@@ -1,17 +1,17 @@
 Code Style
 ==========
 
-If you ask to Python programmers what they like the most in Python, they will
-often say it is its high readability.  Indeed, a high level of readability of
-the code is at the heart of the design of the Python language, following the
+If you ask Python programmers what they like most in Python, they will
+often say its high readability.  Indeed, a high level of readability
+is at the heart of the design of the Python language, following the
 recognised fact that code is read much more often than it is written.
 
 One reason for Python code to be easily read and understood is its relatively
 complete set of Code Style guidelines and "Pythonic" idioms.
 
-On the opposite, when a veteran Python developper (a Pythonistas) point to some
+Moreover, when a veteran Python developer (a Pythonistas) point to some
 parts of a code and say it is not "Pythonic", it usually means that these lines
-of code do not follow the common guidelines and fail to express the intent is
+of code do not follow the common guidelines and fail to express the intent in
 what is considered the best (hear: most readable) way.
 
 On some border cases, no best way has been agreed upon on how to express
@@ -79,6 +79,85 @@ it is bad practice to have two disjoint statements on the same line.
     if cond1 and cond2:
         # do something
 
+Function arguments
+~~~~~~~~~~~~~~~~~~
+
+Arguments can be passed to functions in four different ways.
+
+**Positional arguments** are mandatory and have no default values. They are the
+simplest form of arguments and they can be used for the few function arguments
+that are fully part of the functions meaning and their order is natural. For
+instance, in ``send(message, recipient)`` or ``point(x, y)`` the user of the
+function has no difficulty to remember that those two function require two
+arguments, and in which order.
+
+In those two cases, it is possible to use argument names when calling the functions
+and, doing so, it is possible to switch the order of arguments, calling for instance
+``send(recipient='World', message='Hello')`` and ``point(y=2, x=1)`` but this
+reduce readability and is unnecessarily verbose, compared to the more straightforward
+calls to ``send('Hello', 'World')`` and ``point(1, 2)``.
+
+**Keyword arguments** are not mandatory and have default values. They are often
+used for optional parameters sent to the function. When a function has more than
+two or three positional parameters, its signature will be more difficult to remember
+and using keyword argument with default values is helpful. For instance, a more
+complete ``send`` function could be defined as ``send(message, to, cc=None, bcc=None)``.
+Here ``cc`` and ``bcc`` are optional, and evaluate to ``None`` when the are not
+passed another value.
+
+Calling a function with keyword arguments can be done in multiple ways in Python,
+for example it is possible to follow the order of arguments in the definition without
+explicitely naming the arguments, like in ``send('Hello', 'World', 'Cthulhu`, 'God')``,
+sending a blank carbon copy to God. It would also be possible to name arguments in
+another order, like in ``send('Hello again', 'World', bcc='God', cc='Cthulhu')``.
+Those two possibilities are better avoided whitout any strong reason to not
+follow the syntax that is the closest to the function definition: ``send('Hello',
+'World', cc='Cthulhu', bcc='God')``.
+
+As a side note, following YAGNI_ principle, it is often harder to remove an
+optional argument (and its logic inside the function) that was added "just in
+case" and is seemingly never used, than to add a new optional argument and its
+logic when needed.
+
+The **arbitrary argument list** is the third way to pass arguments to a
+function.  If the function intention is better expressed by a signature with an
+extensible number of positional arguments, it can be defined with the ``*args``
+constructs.  In the function body, ``args`` will be a tuple of all the
+remaining positional arguments. For example, ``send(message, *args)`` can be
+called with each recipient as an argument: ``send('Hello', 'God', 'Mom',
+'Cthulhu')``, and in the function body ``args`` will be equal to ``('God',
+'Mom', 'Cthulhu')``.
+
+However, this construct has some drawback and should be used with caution. If a
+function receives a list of arguments of the same nature, it is often more
+clear to define it as a function of one argument, that argument being a list or
+any sequence. Here, if ``send`` has multiple recipients, it is better to define
+it explicitely: ``send(message, recipients)`` and call it with ``send('Hello',
+['God', 'Mom', 'Cthulhu'])``. This way, the user of the function can manipulate
+the recipient list as a list beforhand, and it opens the possibility to pass
+any sequence, inculding iterators, that cannot be unpacked as other sequences.
+
+The **arbitrary keyword argument dictionary** is the last way to pass arguments
+to functions. If the function requires an undetermined serie of named
+arguments, it is possible to used the ``**kwargs`` construct. In the function
+body, ``kwargs`` will be a dictionary of all the passed named arguments that
+have not been caught be other keyword argument in the function signature.
+
+The same caution as in the case of *arbitrary argument list* is necessary, for
+similar reasons: these powerful techniques are to be used when there is a
+proven necessity to use them, and they should not be used if the simpler and
+clearer construct is sufficient to express the function's intention.
+
+It is up to the programmer writing the function to determine which arguments
+are positional argmuents and which are optional keyword arguments, and to
+decide wheter to use the advanced techniques of arbitrary argument passing. If
+the advices above are followed wisely, it is possible and enjoyable to write
+Python functions that are:
+
+* easy to read (the name and arguments need no explanations)
+
+* easy to change (adding a new keyword argument do not break other parts of the
+  code)
 
 Avoid the magical wand
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -107,7 +186,7 @@ We are all consenting adults
 
 As seen above, Python allows many tricks, and some of them are potentially
 dangerous. A good example is that any client code can override an object's
-properties and methods: There is no "private" keyword in Python. This
+properties and methods: there is no "private" keyword in Python. This
 philosophy, very different from highly defensive languages like Java, which
 give a lot of mechanism to prevent any misuse, is expressed by the saying: "We
 are consenting adults".
@@ -157,19 +236,23 @@ Create an ignored variable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you need to assign something (for instance, in :ref:`unpacking-ref`) but
-will not need that variable, use ``_``:
+will not need that variable, use ``__``:
 
 .. code-block:: python
 
     filename = 'foobar.txt'
-    basename, _, ext = filename.rpartition()
+    basename, __, ext = filename.rpartition()
 
 .. note::
 
-   "``_``" is commonly used as an alias for the :func:`~gettext.gettext`
-   function. If your application uses (or may someday use) :mod:`gettext`,
-   you may want to avoid using ``_`` for ignored variables, as you may
-   accidentally shadow :func:`~gettext.gettext`.
+   Many Python style guides recommend the use of a single underscore "``_``"
+   for throwaway variables rather than the double underscore "``__``"
+   recommended here. The issue is that "``_``" is commonly used as an alias
+   for the :func:`~gettext.gettext` function, and is also used at the
+   interactive prompt to hold the value of the last operation. Using a
+   double underscore instead is just as clear and almost as convenient,
+   and eliminates the risk of accidentally interfering with either of
+   these other use cases.
 
 Create a length-N list of the same thing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -202,10 +285,10 @@ This will set the value of the variable *word* to 'spam'. This idiom can be appl
 Sometimes we need to search through a collection of things. Let's look at two options: lists and dictionaries.
 
 Take the following code for example::
-    
+
     d = {'s': [], 'p': [], 'a': [], 'm': []}
     l = ['s', 'p', 'a', 'm']
-    
+
     def lookup_dict(d):
         return 's' in d
 
@@ -498,12 +581,14 @@ and square braces.
 
 .. code-block:: python
 
-    my_very_big_string = ("For a long time I used to go to bed early. Sometimes, "
-        "when I had put out my candle, my eyes would close so quickly that I had not even "
-        "time to say “I’m going to sleep.”")
+    my_very_big_string = (
+        "For a long time I used to go to bed early. Sometimes, "
+        "when I had put out my candle, my eyes would close so quickly "
+        "that I had not even time to say “I’m going to sleep.”"
+    )
 
-    from some.deep.module.inside.a.module import (a_nice_function, another_nice_function,
-                                                  yet_another_nice_functio)
+    from some.deep.module.inside.a.module import (
+        a_nice_function, another_nice_function, yet_another_nice_function)
 
 However, more often than not having to split long logical line is a sign that
 you are trying to do too many things at the same time, which may hinder
